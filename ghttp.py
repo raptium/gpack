@@ -1,6 +1,7 @@
 import re
 import time
 import os
+import gzip
 import select
 from os import access
 from os.path import join, exists, getmtime, getsize
@@ -210,6 +211,8 @@ class GHTTPServer(object):
     @property
     def read_body(self):
         input = self.env["wsgi.input"]
+        if self.env.get("HTTP_CONTENT_ENCODING") == "gzip":
+            return zlib.decompress(input.read(), 16 + zlib.MAX_WBITS)
         return input.read()
 
     # ------------------------------
