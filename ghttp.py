@@ -1,7 +1,7 @@
 import re
 import time
 import os
-import gzip
+import zlib
 import select
 from os import access
 from os.path import join, exists, getmtime, getsize
